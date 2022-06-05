@@ -37,6 +37,12 @@ function question1 () {
     answerThree.textContent='3. alerts';
     answerFour.setAttribute("style", "visibility:visible;");
     answerFour.textContent='4. numbers';
+    answerThree.addEventListener('click', function() {
+        question2()
+    })
+    answerOne.addEventListener('click', questionOnewrongAnswer)
+    answerTwo.addEventListener('click', questionOnewrongAnswer)
+    answerFour.addEventListener('click', questionOnewrongAnswer)
 }
 
 //runs question 2
@@ -50,6 +56,12 @@ function question2 () {
     answerThree.textContent='3. parentheses';
     answerFour.setAttribute("style", "visibility:visible;");
     answerFour.textContent='4. square brackets';
+    answerOne.addEventListener('click', function () {
+        question3()
+    })
+    answerTwo.addEventListener('click', questionTwowrongAnswer)
+    answerThree.addEventListener('click', questionTwowrongAnswer)
+    answerFour.addEventListener('click', questionTwowrongAnswer)
 }
 
 //runs question 3
@@ -63,6 +75,12 @@ function question3 () {
     answerThree.textContent='3. booleans';
     answerFour.setAttribute("style", "visibility:visible;");
     answerFour.textContent='4. all of the above';
+    answerFour.addEventListener('click', function () {
+        question4()
+    })
+    answerOne.addEventListener('click', questionThreewrongAnswer)
+    answerTwo.addEventListener('click', questionThreewrongAnswer)
+    answerThree.addEventListener('click', questionThreewrongAnswer)
 }
 
 //runs question 4
@@ -76,19 +94,31 @@ function question4 () {
     answerThree.textContent='3. quotes';
     answerFour.setAttribute("style", "visibility:visible;");
     answerFour.textContent='4. parentheses';
+    answerThree.addEventListener('click', function () {
+        question5()
+    })
+    answerOne.addEventListener('click', questionFourwrongAnswer)
+    answerTwo.addEventListener('click', questionFourwrongAnswer)
+    answerFour.addEventListener('click', questionFourwrongAnswer)
 }
 
 //runs question 5
 function question5 () {
     question.textContent ='A very useful tool used during development and debugging for printing content to the debugger is:';
     answerOne.setAttribute("style", "visibility:visible;");
-    answerOne.textContent='1. strings';
+    answerOne.textContent='1. JavaScript';
     answerTwo.setAttribute("style", "visibility:visible;");
-    answerTwo.textContent='2. booleans';
+    answerTwo.textContent='2. terminal/bash';
     answerThree.setAttribute("style", "visibility:visible;");
-    answerThree.textContent='3. alerts';
+    answerThree.textContent='3. for loops';
     answerFour.setAttribute("style", "visibility:visible;");
-    answerFour.textContent='4. numbers';
+    answerFour.textContent='4. console.log';
+    answerFour.addEventListener('click', function () {
+        start()
+    })
+    answerOne.addEventListener('click', questionFivewrongAnswer)
+    answerTwo.addEventListener('click', questionFivewrongAnswer)
+    answerThree.addEventListener('click', questionFivewrongAnswer)
 }
 
 // when the start function is ran, the startTimer function will run
@@ -101,7 +131,7 @@ function startTimer() {
     }, 1000)
 }
 
-// click an answer and the next questio comes up
+// click an answer and the next question comes up
 
 
 
@@ -110,3 +140,28 @@ function startTimer() {
 // when submitted a highscore table is displayed
 
 // button is clicked --> go back runs function again, clear highscores removes local storage
+
+function questionOnewrongAnswer() {
+    timerCount=timerCount-15;
+    question2()
+}
+
+function questionTwowrongAnswer() {
+    timerCount=timerCount-15;
+    question3()
+}
+
+function questionThreewrongAnswer() {
+    timerCount=timerCount-15;
+    question4()
+}
+
+function questionFourwrongAnswer() {
+    timerCount=timerCount-15;
+    question5()
+}
+
+function questionFivewrongAnswer() {
+    timerCount=timerCount-15;
+    start()
+}
