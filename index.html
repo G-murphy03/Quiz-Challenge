@@ -10,29 +10,45 @@
 
   <body>
     <header>
-        <div class="highScore">
+        <div id="highScore" class="highScore">
             <p>View Highscores</p>
         </div>
         <div class="time">
             <p>Time: <span id=time></span></p>
         </div>
-        <h1 id="question">Coding Quiz Challenge</h1>
     </header>
     
-    <div>
+    <div id="start" class="show">
+        <h1>Coding Quiz Challenge</h1>
         <p class="description">
             Try to answer the following code-related questions within the time <br>limit. Keep in mind that incorrect questions will penalise your scoretime <br>by ten seconds!
         </p>
-    </div>
-    
-    <div class="quiz">
-        <button class="startQuiz" id="startQuiz">
+        <button class="button" id="startQuiz">
             Start Quiz
         </button>
-        <button class="startQuiz answers" id="answer-1"></button>
-        <button class="startQuiz answers" id="answer-2"></button>
-        <button class="startQuiz answers" id="answer-3"></button>
-        <button class="startQuiz answers" id="answer-4"></button>
+    </div>
+    
+    <div id="quiz" class="hide">
+        <div id="question"></div>
+        <div id="answers" class="answers"></div>
+    </div>
+
+    <div id="finish" class="hide">
+        <div class="finish">
+            <div id="score">
+                <h1>All done!</h1>
+            </div>
+            <form id="initials" class="initials">
+                <label for="initials"> Enter Initials </label>
+                <input type="text" id="initials-input" name="initials-input"/>
+                <button class="button" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="high-scores" class="hide">
+        <h1>High Scores</h1>
+        <ol id="high-score-list"></ol>
     </div>
     
     <script src="./assets/js/script.js"></script>

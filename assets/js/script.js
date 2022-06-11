@@ -1,124 +1,60 @@
+var startPage = document.getElementById("start");
+var quizPage = document.getElementById("quiz");
+var finishPage = document.getElementById("finish");
+var highScorePage = document.getElementById("high-scores");
 var time = document.querySelector("#time");
 var startQuiz = document.querySelector("#startQuiz");
-var question = document.getElementById("question");
-var description = document.querySelector(".description");
-var answerOne = document.querySelector("#answer-1");
-var answerTwo = document.querySelector("#answer-2");
-var answerThree = document.querySelector("#answer-3");
-var answerFour = document.querySelector("#answer-4");
+var question = document.querySelector("#question");
+var answerbtns =  document.querySelector("#answers");
+var score = document.getElementById("score");
+var initials = document.getElementById("initials");
+var highScoreList  =  document.getElementById("high-score-list");
+var highScorebtn = document.getElementById("highScore");
 var timer;
 var timerCount;
+var gameover;
+var HighScores = [];
+var arrayShuffledQuestions
+var QuestionIndex = 0
+
+var questionsList = [
+    { q: 'Commonly used data types DO NOT include:', 
+      a: '3. alerts', 
+      options: [{choice: '1. strings'}, {choice: '2. booleans'}, {choice: '3. alerts'}, {choice: '4. numbers'}]
+    },
+
+    { q: 'The condition in an if / else statement is encolsed within ___', 
+      a: '1. curly brackets', 
+      options: [{choice: '1. curly brackets'}, {choice: '2. booleans'}, {choice: '3. parentheses'}, {choice: '4. square brackets'}]
+    },
+
+    { q: 'Arrays in JavaScript can be used to store ____.', 
+      a: '4. all of the above', 
+      options: [{choice: '1. numbers and strings'}, {choice: '2. other arrays'}, {choice: '3. booleans'}, {choice: '4. all of the above'}]
+    },
+
+    { q: 'String values must be enclosed within ___ when being assigned to variables', 
+      a: '3. quotes', 
+      options: [{choice: '1. commas'}, {choice: '2. curly brackets'}, {choice: '3. quotes'}, {choice: '4. parentheses'}]
+    },
+
+    { q: 'A very useful tool used during development and debugging for printing content to the debugger is:', 
+      a: '4. console.log', 
+      options: [{choice: '1. JavaScript'}, {choice: '2. terminal/bash'}, {choice: '3. for loops'}, {choice: '4. console.log'}]
+    },
+];
 
 //when the start quiz button is clicked, the function start will run
 startQuiz.addEventListener('click', start);
 
-// Function that runs the entire quiz
+// Function that starts the entire quiz
 function start() {
+    startPage.classList.add('hide');
+    quizPage.classList.remove('hide');
     timerCount = 75;
+    arrayShuffledQuestions = questionsList.sort(() => Math.random() - 0.5)
     startTimer()
-    clear()
-    question1()
-}
-
-//clears initial page
-function clear() {
-    description.innerHTML='';
-    startQuiz.remove();
-}
-
-//runs question 1
-function question1 () {
-    question.textContent ='Commonly used data types DO NOT include:';
-    answerOne.setAttribute("style", "visibility:visible;");
-    answerOne.textContent='1. strings';
-    answerTwo.setAttribute("style", "visibility:visible;");
-    answerTwo.textContent='2. booleans';
-    answerThree.setAttribute("style", "visibility:visible;");
-    answerThree.textContent='3. alerts';
-    answerFour.setAttribute("style", "visibility:visible;");
-    answerFour.textContent='4. numbers';
-    answerThree.addEventListener('click', function() {
-        question2()
-    })
-    answerOne.addEventListener('click', questionOnewrongAnswer)
-    answerTwo.addEventListener('click', questionOnewrongAnswer)
-    answerFour.addEventListener('click', questionOnewrongAnswer)
-}
-
-//runs question 2
-function question2 () {
-    question.textContent ='The condition in an if / else statement is encolsed within ___';
-    answerOne.setAttribute("style", "visibility:visible;");
-    answerOne.textContent='1. curly brackets';
-    answerTwo.setAttribute("style", "visibility:visible;");
-    answerTwo.textContent='2. booleans';
-    answerThree.setAttribute("style", "visibility:visible;");
-    answerThree.textContent='3. parentheses';
-    answerFour.setAttribute("style", "visibility:visible;");
-    answerFour.textContent='4. square brackets';
-    answerOne.addEventListener('click', function () {
-        question3()
-    })
-    answerTwo.addEventListener('click', questionTwowrongAnswer)
-    answerThree.addEventListener('click', questionTwowrongAnswer)
-    answerFour.addEventListener('click', questionTwowrongAnswer)
-}
-
-//runs question 3
-function question3 () {
-    question.textContent ='Arrays in JavaScript can be used to store ____.';
-    answerOne.setAttribute("style", "visibility:visible;");
-    answerOne.textContent='1. numbers and strings';
-    answerTwo.setAttribute("style", "visibility:visible;");
-    answerTwo.textContent='2. other arrays';
-    answerThree.setAttribute("style", "visibility:visible;");
-    answerThree.textContent='3. booleans';
-    answerFour.setAttribute("style", "visibility:visible;");
-    answerFour.textContent='4. all of the above';
-    answerFour.addEventListener('click', function () {
-        question4()
-    })
-    answerOne.addEventListener('click', questionThreewrongAnswer)
-    answerTwo.addEventListener('click', questionThreewrongAnswer)
-    answerThree.addEventListener('click', questionThreewrongAnswer)
-}
-
-//runs question 4
-function question4 () {
-    question.textContent ='String values must be enclosed within ___ when being assigned to variables.';
-    answerOne.setAttribute("style", "visibility:visible;");
-    answerOne.textContent='1. commas';
-    answerTwo.setAttribute("style", "visibility:visible;");
-    answerTwo.textContent='2. curly brackets';
-    answerThree.setAttribute("style", "visibility:visible;");
-    answerThree.textContent='3. quotes';
-    answerFour.setAttribute("style", "visibility:visible;");
-    answerFour.textContent='4. parentheses';
-    answerThree.addEventListener('click', function () {
-        question5()
-    })
-    answerOne.addEventListener('click', questionFourwrongAnswer)
-    answerTwo.addEventListener('click', questionFourwrongAnswer)
-    answerFour.addEventListener('click', questionFourwrongAnswer)
-}
-
-//runs question 5
-function question5 () {
-    question.textContent ='A very useful tool used during development and debugging for printing content to the debugger is:';
-    answerOne.setAttribute("style", "visibility:visible;");
-    answerOne.textContent='1. JavaScript';
-    answerTwo.setAttribute("style", "visibility:visible;");
-    answerTwo.textContent='2. terminal/bash';
-    answerThree.setAttribute("style", "visibility:visible;");
-    answerThree.textContent='3. for loops';
-    answerFour.setAttribute("style", "visibility:visible;");
-    answerFour.textContent='4. console.log';
-    answerFour.addEventListener('click', function () {
-        start()
-    })
-    answerOne.addEventListener('click', questionFivewrongAnswer)
-    answerTwo.addEventListener('click', questionFivewrongAnswer)
-    answerThree.addEventListener('click', questionFivewrongAnswer)
+    chooseQuestions()
 }
 
 // when the start function is ran, the startTimer function will run
@@ -127,41 +63,69 @@ function startTimer() {
     timer = setInterval(function() {
         timerCount--;
         time.textContent = timerCount;
-    // if answer is right time is the same, if wrong, 15s is taken off the clock
+    if (gameover) {
+        clearInterval(timer)
+    }
+    if (timerCount < 0) {
+        time.textContent = "0"
+        clearInterval(timer)
+    }
     }, 1000)
 }
 
-// click an answer and the next question comes up
-
-
-
-// when quiz is finished, final score is equal to time remaining, initials can be submitted to local storage 
-
-// when submitted a highscore table is displayed
-
-// button is clicked --> go back runs function again, clear highscores removes local storage
-
-function questionOnewrongAnswer() {
-    timerCount=timerCount-15;
-    question2()
+// cycles through the list of questions that have been randomised and is displayed
+function chooseQuestions() {
+    clearAnswers()
+    displayQuestion(arrayShuffledQuestions[QuestionIndex])
 }
 
-function questionTwowrongAnswer() {
-    timerCount=timerCount-15;
-    question3()
+//clears answers so they do not stack after every question is answered
+function clearAnswers() {
+    while (answerbtns.firstChild) {
+        answerbtns.removeChild(answerbtns.firstChild)
+    };
 }
 
-function questionThreewrongAnswer() {
-    timerCount=timerCount-15;
-    question4()
+
+function displayQuestion(index) {
+    question.innerText = index.q
+    //for every choice, create a button element in HTML with class button and answerbtn, insert the answer, add an event listener for the button which checks if the answer is correct and put the button element as a child of the answerbtns variable
+    for (var i=0; i < index.options.length; i++) {
+        var answerbtn = document.createElement('button')
+        answerbtn.innerText = index.options[i].choice
+        answerbtn.classList.add('button')
+        answerbtn.addEventListener("click", answerCheck)
+        answerbtns.appendChild(answerbtn)
+    }
+};
+
+// Searches if the answer is correct through comparing selected answer to "a" in the questionsList array, if answer is right, no time is added, if wrong, 15s is subtracted
+function answerCheck(event) {
+    var chosenAnswer = event.target
+    if  (arrayShuffledQuestions[QuestionIndex].a  === chosenAnswer.innerText) {
+    }
+    else {
+        timerCount = timerCount - 15;
+    }
+    
+    QuestionIndex++
+        if (arrayShuffledQuestions.length>QuestionIndex + 1) {
+        chooseQuestions()
+    }
+    else {
+        gameover = "true";
+        showScore();
+    }
 }
 
-function questionFourwrongAnswer() {
-    timerCount=timerCount-15;
-    question5()
+// when the game is over, hide the quizPage by adding class "hide" and remove "hide" class to make the finishPage appear. Display text that shows your score through DOM manipulation
+function showScore() {
+    quizPage.classList.add("hide");
+    finishPage.classList.remove("hide");
+    var yourScore = document.createElement("p");
+    yourScore.textContent = "Your final score is " + timerCount + "!";
+    score.appendChild(yourScore);
 }
 
-function questionFivewrongAnswer() {
-    timerCount=timerCount-15;
-    start()
-}
+
+
